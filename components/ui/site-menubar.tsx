@@ -1,0 +1,227 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import {
+  Bell,
+  ChevronDown,
+  CircleUserRound,
+  Compass,
+  FileText,
+  HelpCircle,
+  Menu,
+  Settings,
+  Sparkles,
+  WrenchOff,
+  X,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+export type MenuItem = {
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
+const defaultMenuItems: MenuItem[] = [
+  { label: "Discover", href: "#discover" },
+  { label: "Features", href: "#features" },
+  { label: "Pricing", href: "#pricing" },
+];
+
+type SiteMenubarProps = {
+  siteName?: string;
+  menuItems?: MenuItem[];
+  isLoggedIn?: boolean;
+  onLogout?: () => void;
+};
+
+export function SiteMenubar({
+  siteName = "FixNow",
+  menuItems = defaultMenuItems,
+  isLoggedIn = true,
+  onLogout,
+}: SiteMenubarProps) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8">
+        <Link
+          href="/"
+          className="group flex items-center gap-3"
+          aria-label={`${siteName} home`}
+        >
+          <span className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm transition-transform group-hover:-rotate-6">
+            <WrenchOff className="size-5" aria-hidden="true" />
+          </span>
+          <span className="font-serif text-xl font-semibold tracking-tight">
+            {siteName}
+          </span>
+        </Link>
+
+        <nav
+          className="hidden items-center gap-1 md:flex"
+          aria-label="Main navigation"
+        >
+          {menuItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noreferrer" : undefined}
+              className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="hidden items-center gap-3 md:flex">
+          {isLoggedIn ? (
+            <div className="relative">
+              <Button
+                variant="ghost"
+                className="gap-2 rounded-full pl-2 pr-3"
+                aria-expanded={profileOpen}
+                aria-haspopup="menu"
+                onClick={() => setProfileOpen((open) => !open)}
+              >
+                <span className="flex size-8 items-center justify-center rounded-full bg-secondary text-foreground">
+                  <CircleUserRound className="size-4" aria-hidden="true" />
+                </span>
+                <span className="text-sm">Account</span>
+                <ChevronDown
+                  className={`size-4 transition-transform ${profileOpen ? "rotate-180" : ""}`}
+                  aria-hidden="true"
+                />
+              </Button>
+              {profileOpen && (
+                <div
+                  className="absolute right-0 top-12 w-60 rounded-2xl border border-border bg-popover p-2 text-popover-foreground shadow-xl"
+                  role="menu"
+                >
+                  <div className="border-b border-border px-3 py-3">
+                    <p className="text-sm font-semibold">Alex Morgan</p>
+                    <p className="text-xs text-muted-foreground">
+                      alex@example.com
+                    </p>
+                  </div>
+                  <div className="pt-2">
+                    <Link
+                      href="#profile"
+                      role="menuitem"
+                      className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm hover:bg-accent"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      <CircleUserRound className="size-4 text-muted-foreground" />{" "}
+                      Profile
+                    </Link>
+                    <Link
+                      href="#notifications"
+                      role="menuitem"
+                      className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm hover:bg-accent"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      <Bell className="size-4 text-muted-foreground" />{" "}
+                      Notifications
+                    </Link>
+                    <Link
+                      href="#settings"
+                      role="menuitem"
+                      className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm hover:bg-accent"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      <Settings className="size-4 text-muted-foreground" />{" "}
+                      Settings
+                    </Link>
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={onLogout}
+                      className="mt-1 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm text-destructive hover:bg-destructive/10"
+                    >
+                      <X className="size-4" /> Log out
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="inline-flex h-8 items-center justify-center rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/80 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+            >
+              Log in
+            </Link>
+          )}
+        </div>
+
+        <button
+          type="button"
+          className="rounded-lg p-2 hover:bg-secondary md:hidden"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+          onClick={() => setMobileOpen((open) => !open)}
+        >
+          {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+        </button>
+      </div>
+
+      {mobileOpen && (
+        <div className="border-t border-border/70 px-5 pb-5 md:hidden">
+          <nav
+            className="flex flex-col gap-1 pt-3"
+            aria-label="Mobile navigation"
+          >
+            {menuItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="rounded-xl px-3 py-3 text-sm font-medium hover:bg-secondary"
+                onClick={() => setMobileOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <div className="mt-3 border-t border-border pt-3">
+              {isLoggedIn ? (
+                <>
+                  <Link
+                    href="#profile"
+                    className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm hover:bg-secondary"
+                  >
+                    <CircleUserRound className="size-4" /> Profile
+                  </Link>
+                  <Link
+                    href="#settings"
+                    className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm hover:bg-secondary"
+                  >
+                    <Settings className="size-4" /> Settings
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={onLogout}
+                    className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm text-destructive hover:bg-destructive/10"
+                  >
+                    <X className="size-4" /> Log out
+                  </button>
+                </>
+              ) : (
+                <Link
+                  href="/login"
+                  className="inline-flex h-8 w-full items-center justify-center rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/80"
+                >
+                  Log in
+                </Link>
+              )}
+            </div>
+          </nav>
+        </div>
+      )}
+    </header>
+  );
+}
+
+export const menuIcons = { Compass, FileText, HelpCircle };
