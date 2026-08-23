@@ -105,7 +105,7 @@ export function DashboardSidebar({ role, onNavigate }: DashboardSidebarProps) {
             <Wrench className="size-5" />
           </div>
 
-          <span className="text-xl font-bold tracking-tight">FixItNow</span>
+          <span className="text-xl font-bold tracking-tight">FixNow</span>
         </Link>
       </div>
 

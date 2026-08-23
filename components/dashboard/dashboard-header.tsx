@@ -31,7 +31,7 @@ export function DashboardHeader({ role }: DashboardHeaderProps) {
             </Button>
           </SheetTrigger>
 
-          <SheetContent side="left" className="w-[280px] p-0 sm:w-[320px]">
+          <SheetContent side="left" className="w-280px p-0 sm:w-[320px]">
             <SheetTitle className="sr-only">Dashboard navigation</SheetTitle>
 
             <div className="h-dvh">
@@ -48,7 +48,7 @@ export function DashboardHeader({ role }: DashboardHeaderProps) {
 
       {/* Mobile title */}
       <div className="absolute left-1/2 -translate-x-1/2 lg:hidden">
-        <span className="font-bold">FixItNow</span>
+        <span className="font-bold">FixNow</span>
       </div>
 
       {/* Right side */}
