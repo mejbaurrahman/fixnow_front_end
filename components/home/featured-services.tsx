@@ -79,7 +79,7 @@ export function FeaturedServices() {
 function ServiceCard({ service }: { service: (typeof services)[number] }) {
   return (
     <Card className="group overflow-hidden border-border/70 py-0 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-      <div className="relative aspect-[16/10] overflow-hidden">
+      <div className="relative aspect-16/10 overflow-hidden">
         <Image
           src={service.image}
           alt={service.title}

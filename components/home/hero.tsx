@@ -14,7 +14,7 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden">
       {/* Background decoration */}
-      <div className="pointer-events-none absolute -right-40 -top-40 size-[500px] rounded-full bg-primary/10 blur-3xl" />
+      <div className="pointer-events-none absolute -right-40 -top-40 size-125 rounded-full bg-primary/10 blur-3xl" />
 
       <div className="container relative mx-auto px-4 py-20 md:py-28">
         <div className="mx-auto max-w-4xl text-center">
