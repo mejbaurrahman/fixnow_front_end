@@ -30,7 +30,6 @@ export const loginAction = async (
   const result = await res.json();
 
   if (result.success) {
-    toast.success("Login Succesful");
     const cookieStore = await cookies();
     cookieStore.set("accessToken", result.data.accessToken, {
       httpOnly: true,
