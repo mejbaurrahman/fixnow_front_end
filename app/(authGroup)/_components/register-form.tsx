@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import {
   ArrowRight,
   BriefcaseBusiness,
@@ -36,6 +36,7 @@ import { useSearchParams } from "next/navigation";
 import { registerAction } from "../_actions/registerAction";
 import { RegisterState } from "@/lib/types";
 import { status } from "http-status";
+import { toast } from "sonner";
 
 export function RegisterForm() {
   const [role, setRole] = useState<"CUSTOMER" | "TECHNICIAN">("CUSTOMER");
@@ -55,6 +56,14 @@ export function RegisterForm() {
     initialState,
   );
 
+  useEffect(() => {
+    if (!state.message) return;
+    if (state.success) {
+      toast.success(state.message);
+    } else {
+      toast.error(state.message);
+    }
+  }, [state]);
   return (
     <Card className="w-full border-border/70 bg-card/95 shadow-xl shadow-foreground/5 backdrop-blur-sm">
       <CardHeader className="gap-3 p-6 pb-5 sm:p-8 sm:pb-6">
@@ -71,240 +80,157 @@ export function RegisterForm() {
         </div>
       </CardHeader>
       <CardContent className="p-6 pt-0 sm:p-8 sm:pt-0">
-        {submitted ? (
-          <div className="flex flex-col items-center gap-4 py-10 text-center">
-            <div className="flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground">
-              <Check className="size-7" aria-hidden="true" />
+        <form action={action} className="flex flex-col gap-6">
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div className="flex flex-col gap-2 sm:col-span-2">
+              <Label htmlFor="name">Full name</Label>
+              <Input id="name" name="name" placeholder="Alex Morgan" required />
             </div>
-            <div className="flex flex-col gap-2">
-              <h2 className="font-serif text-2xl">You are all set.</h2>
-              <p className="text-sm leading-6 text-muted-foreground">
-                Your account request has been captured. Welcome aboard.
-              </p>
+            <div className="flex flex-col gap-2 sm:col-span-2">
+              <Label htmlFor="email">Email address</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="alex@example.com"
+                required
+              />
             </div>
-            <Button variant="outline" onClick={() => setSubmitted(false)}>
-              Edit details
-            </Button>
-          </div>
-        ) : (
-          <form
-            className="flex flex-col gap-6"
-            onSubmit={(event) => {
-              event.preventDefault();
-              setSubmitted(true);
-            }}
-          >
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="flex flex-col gap-2 sm:col-span-2">
-                <Label htmlFor="name">Full name</Label>
+            <div className="flex flex-col gap-2 sm:col-span-2">
+              <Label htmlFor="password">Password</Label>
+              <div className="relative">
                 <Input
-                  id="name"
-                  name="name"
-                  placeholder="Alex Morgan"
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="At least 8 characters"
+                  minLength={6}
                   required
+                  className="pr-11"
                 />
-              </div>
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="email">Email address</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="alex@example.com"
-                  required
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="phone">
-                  Phone{" "}
-                  <span className="font-normal text-muted-foreground">
-                    (optional)
-                  </span>
-                </Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="+1 555 000 0000"
-                />
-              </div>
-              <div className="flex flex-col gap-2 sm:col-span-2">
-                <Label htmlFor="password">Password</Label>
-                <div className="relative">
-                  <Input
-                    id="password"
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="At least 8 characters"
-                    minLength={8}
-                    required
-                    className="pr-11"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword((value) => !value)}
-                    className="absolute right-0 top-0 flex h-full items-center px-3 text-muted-foreground transition-colors hover:text-foreground"
-                    aria-label={
-                      showPassword ? "Hide password" : "Show password"
-                    }
-                  >
-                    {showPassword ? (
-                      <EyeOff className="size-4" aria-hidden="true" />
-                    ) : (
-                      <Eye className="size-4" aria-hidden="true" />
-                    )}
-                  </button>
-                </div>
-              </div>
-              <div className="flex flex-col gap-2 sm:col-span-2">
-                <Label htmlFor="role">I am joining as</Label>
-                <Select
-                  value={role}
-                  onValueChange={(value) => {
-                    if (value) {
-                      setRole(value);
-                    }
-                  }}
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((value) => !value)}
+                  className="absolute right-0 top-0 flex h-full items-center px-3 text-muted-foreground transition-colors hover:text-foreground"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
-                  <SelectTrigger id="role" className="h-11">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="CUSTOMER">
-                      <span className="flex items-center gap-2">
-                        <UserRound className="size-4" aria-hidden="true" />{" "}
-                        Customer
-                      </span>
-                    </SelectItem>
-                    <SelectItem value="TECHNICIAN">
-                      <span className="flex items-center gap-2">
-                        <BriefcaseBusiness
-                          className="size-4"
-                          aria-hidden="true"
-                        />{" "}
-                        Technician
-                      </span>
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
+                  {showPassword ? (
+                    <EyeOff className="size-4" aria-hidden="true" />
+                  ) : (
+                    <Eye className="size-4" aria-hidden="true" />
+                  )}
+                </button>
               </div>
             </div>
+            <div className="flex flex-col gap-2 sm:col-span-2">
+              <Label htmlFor="role">I&apos;m joining as</Label>
+              <input type="hidden" name="role" value={role} />
+              <Select
+                value={role}
+                onValueChange={(value) => {
+                  if (value) {
+                    setRole(value);
+                  }
+                }}
+              >
+                <SelectTrigger id="role" className="h-11">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="CUSTOMER">
+                    <span className="flex items-center gap-2">
+                      <UserRound className="size-4" aria-hidden="true" />{" "}
+                      Customer
+                    </span>
+                  </SelectItem>
+                  <SelectItem value="TECHNICIAN">
+                    <span className="flex items-center gap-2">
+                      <BriefcaseBusiness
+                        className="size-4"
+                        aria-hidden="true"
+                      />{" "}
+                      Technician
+                    </span>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
 
-            {role === "TECHNICIAN" && (
-              <div className="flex flex-col gap-5 rounded-xl border border-border bg-muted/40 p-5 sm:p-6">
-                <div className="flex flex-col gap-1">
-                  <p className="font-medium">Technician profile</p>
-                  <p className="text-sm leading-6 text-muted-foreground">
-                    Help customers understand what makes your service special.
-                  </p>
-                </div>
-                <Separator />
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <div className="flex flex-col gap-2 sm:col-span-2">
-                    <Label htmlFor="bio">
-                      Professional bio{" "}
-                      <span className="font-normal text-muted-foreground">
-                        (optional)
-                      </span>
-                    </Label>
-                    <Textarea
-                      id="bio"
-                      name="bio"
-                      placeholder="Tell customers about your craft and approach..."
-                      className="min-h-24 resize-none"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <Label htmlFor="experience">Years of experience</Label>
-                    <Input
-                      id="experience"
-                      name="experience"
-                      type="number"
-                      min="0"
-                      placeholder="5"
-                      required
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <Label htmlFor="hourlyRate">Hourly rate</Label>
-                    <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                        $
-                      </span>
-                      <Input
-                        id="hourlyRate"
-                        name="hourlyRate"
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        placeholder="75.00"
-                        className="pl-7"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-2 sm:col-span-2">
-                    <Label htmlFor="location">Service location</Label>
-                    <Input
-                      id="location"
-                      name="location"
-                      placeholder="Brooklyn, NY"
-                      required
-                    />
-                  </div>
-                </div>
+          {role === "TECHNICIAN" && (
+            <div className="flex flex-col gap-5 rounded-xl border border-border bg-muted/40 p-5 sm:p-6">
+              <div className="flex flex-col gap-1">
+                <p className="font-medium">Technician profile</p>
+                <p className="text-sm leading-6 text-muted-foreground">
+                  Help customers understand what makes your service special.
+                </p>
               </div>
-            )}
-
-            <div className="flex flex-col gap-5">
               <div className="grid gap-5 sm:grid-cols-2">
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="address">
-                    Address{" "}
-                    <span className="font-normal text-muted-foreground">
-                      (optional)
-                    </span>
-                  </Label>
+                  <Label htmlFor="experience">Years of experience</Label>
                   <Input
-                    id="address"
-                    name="address"
-                    placeholder="123 Main Street"
+                    id="experience"
+                    name="experience"
+                    type="number"
+                    min="0"
+                    placeholder="5"
+                    required
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="city">
-                    City{" "}
-                    <span className="font-normal text-muted-foreground">
-                      (optional)
+                  <Label htmlFor="hourlyRate">Hourly rate</Label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                      $
                     </span>
-                  </Label>
-                  <Input id="city" name="city" placeholder="New York" />
+                    <Input
+                      id="hourlyRate"
+                      name="hourlyRate"
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      placeholder="75.00"
+                      className="pl-7"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2 sm:col-span-2">
+                  <Label htmlFor="location">Service location</Label>
+                  <Input
+                    id="location"
+                    name="location"
+                    placeholder="Brooklyn, NY"
+                    required
+                  />
                 </div>
               </div>
-              <Button type="submit" size="lg" className="h-12 w-full gap-2">
-                Create account{" "}
-                <ArrowRight
-                  className="size-4"
-                  data-icon="inline-end"
-                  aria-hidden="true"
-                />
-              </Button>
-              <p className="text-center text-sm leading-6 text-muted-foreground">
-                Already registered?{" "}
-                <Link
-                  href="/login"
-                  className="font-medium text-primary underline-offset-4 hover:underline"
-                >
-                  Log in
-                </Link>
-              </p>
-              <p className="text-center text-xs leading-5 text-muted-foreground">
-                By creating an account, you agree to our terms and privacy
-                policy.
-              </p>
             </div>
-          </form>
-        )}
+          )}
+
+          <div className="flex flex-col gap-5">
+            <Button type="submit" size="lg" className="h-12 w-full gap-2">
+              Create account{" "}
+              <ArrowRight
+                className="size-4"
+                data-icon="inline-end"
+                aria-hidden="true"
+              />
+            </Button>
+            <p className="text-center text-sm leading-6 text-muted-foreground">
+              Already registered?{" "}
+              <Link
+                href="/login"
+                className="font-medium text-primary underline-offset-4 hover:underline"
+              >
+                Log in
+              </Link>
+            </p>
+            <p className="text-center text-xs leading-5 text-muted-foreground">
+              By creating an account, you agree to our terms and privacy policy.
+            </p>
+          </div>
+        </form>
       </CardContent>
     </Card>
   );
