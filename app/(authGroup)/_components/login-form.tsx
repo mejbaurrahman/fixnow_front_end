@@ -44,10 +44,12 @@ export function LoginForm({
   );
 
   useEffect(() => {
-    if (!state) return;
+    if (!state.message) return;
 
-    if (!state.success) {
-      toast.error(state.message || "Login failed");
+    if (state.success) {
+      toast.success(state.message);
+    } else {
+      toast.error(state.message);
     }
   }, [state]);
   return (

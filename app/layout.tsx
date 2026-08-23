@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner";
+import { Footer } from "@/components/layout/footer";
 
 const notoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 

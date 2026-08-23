@@ -1,6 +1,7 @@
+import { Footer } from "@/components/layout/footer";
 import NavBar from "@/components/layout/navbar";
 
-const DashboardGroupLayout = async ({
+const PublicGroupLayout = async ({
   children,
 }: {
   children: React.ReactNode;
@@ -9,8 +10,9 @@ const DashboardGroupLayout = async ({
     <div>
       <NavBar />
       {children}
+      <Footer />
     </div>
   );
 };
 
-export default DashboardGroupLayout;
+export default PublicGroupLayout;

@@ -1,4 +1,4 @@
-import NavBar from "@/components/shared/navbar";
+import NavBar from "@/components/layout/navbar";
 
 const AuthGroupLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
