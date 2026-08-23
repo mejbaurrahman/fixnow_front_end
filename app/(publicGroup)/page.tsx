@@ -1,9 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { Hero } from "@/components/home/hero";
 import { Categories } from "@/components/home/categories";
 import { FeaturedServices } from "@/components/home/featured-services";
-import { TopTechnicians } from "@/components/home/top-technicians";
+import { Hero } from "@/components/home/hero";
 import { HowItWorks } from "@/components/home/how-it-works";
+import { TopTechnicians } from "@/components/home/top-technicians";
+import { Button } from "@/components/ui/button";
+
 export default async function HomePage() {
   return (
     <>

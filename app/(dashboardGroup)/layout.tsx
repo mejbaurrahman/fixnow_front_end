@@ -1,7 +1,7 @@
-import { DashboardSidebar } from "@/components/layout/dashboard-sidebar";
-import NavBar from "@/components/layout/navbar";
+import { DashboardSidebar } from "@/components/dashboard/dashboard-sidebar";
+import { DashboardHeader } from "@/components/dashboard/dashboard-header";
 
-export default function DashboardLayout({
+export default function DashboardGroupLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -9,10 +9,15 @@ export default function DashboardLayout({
   return (
     <div className="min-h-screen bg-muted/30">
       <div className="flex min-h-screen">
-        <NavBar />
-        <DashboardSidebar />
+        {/* Desktop Sidebar */}
+        <aside className="hidden w-64 shrink-0 border-r bg-background lg:block">
+          <div className="sticky top-0 h-screen">
+            {/*
+             */}
+          </div>
+        </aside>
 
-        <main className="min-w-0 flex-1">{children}</main>
+        <div className="min-w-0 flex-1">{children}</div>
       </div>
     </div>
   );

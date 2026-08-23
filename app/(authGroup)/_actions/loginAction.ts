@@ -19,6 +19,7 @@ export const loginAction = async (
     password,
   };
 
+  console.log(payload);
   const res = await fetch(`${process.env.BACKEND_API_URL}/auth/login`, {
     method: "POST",
     headers: {
@@ -53,7 +54,6 @@ export const loginAction = async (
     ) {
       redirect(redirectTo);
     }
-
     if (decodedToken.role === "CUSTOMER") {
       redirect("/dashboard");
     } else if (decodedToken.role === "ADMIN") {
