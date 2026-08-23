@@ -7,3 +7,10 @@ export type LoginState = {
     refreshToken: string;
   };
 };
+
+export type RegisterState = {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: any;
+};

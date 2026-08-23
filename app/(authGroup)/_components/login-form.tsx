@@ -89,7 +89,7 @@ export function LoginForm({
                   {pending ? "Submitting..." : "Login"}
                 </Button>
                 <FieldDescription className="text-center">
-                  Don't have an account? <a href="#">Sign up</a>
+                  Don't have an account? <a href="/register">Register</a>
                 </FieldDescription>
               </Field>
             </FieldGroup>
