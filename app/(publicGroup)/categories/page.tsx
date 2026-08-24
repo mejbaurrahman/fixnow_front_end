@@ -7,7 +7,7 @@ import { MdCategory } from "react-icons/md";
 export default async function CategoriesPage() {
   const result: CategoriesResponse = await getCategories();
   const categories = result?.data;
-  console.log(result);
+
   return (
     <main className="min-h-screen bg-slate-50">
       {/* Hero */}

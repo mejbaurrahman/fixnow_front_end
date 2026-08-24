@@ -28,14 +28,11 @@ export function ServiceFilters(props: CateroiesProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  // const result: CategoriesResponse = await getCategories();
+
   const categories = props.categories.data;
   const selectedCategory = searchParams.get("category");
   const selectedRating = searchParams.get("rating");
-  // const selectedLocation = searchParams.get("location") ?? "";
-  // const [selectedRating, setSelectedRating] = useState(
-  //   searchParams.get("rating") ?? "",
-  // );
+
   const [location, setLocation] = useState(searchParams.get("location") ?? "");
 
   const updateFilter = (key: string, value: string | null) => {
