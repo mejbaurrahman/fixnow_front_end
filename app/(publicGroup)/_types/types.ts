@@ -1,7 +1,7 @@
 export interface IServiceTechnicianProfile {
   id: string;
   userId: string;
-  bio: string;
+  bio: string | null;
   experience: number;
   hourlyRate: number;
   location: string;
@@ -16,7 +16,7 @@ export interface IServiceTechnician {
   email: string;
   phone: string;
   role: "TECHNICIAN";
-  technicianProfile: IServiceTechnicianProfile | null;
+  technicianProfile: IServiceTechnicianProfile;
 }
 
 export interface IServiceCategory {

@@ -1,13 +1,25 @@
-import { Search } from "lucide-react";
-
-import { Input } from "@/components/ui/input";
 import { ServiceFilters } from "@/components/services/service-filters";
 import { ServiceGrid } from "@/components/services/service-grid";
+import { ServiceSearch } from "@/components/services/service-search";
 import { getServices } from "../_actions/getServices";
+import { IServiceResponse } from "../_types/types";
 
-export default function ServicesPage() {
-  const result = getServices();
-  console.log(result);
+interface ServicesPageProps {
+  searchParams: Promise<{
+    search?: string;
+    category?: string;
+    rating?: string;
+    location?: string;
+  }>;
+}
+
+export default async function ServicesPage({
+  searchParams,
+}: ServicesPageProps) {
+  const params = await searchParams;
+
+  const result: IServiceResponse = await getServices(params);
+
   return (
     <div className="container mx-auto px-4 py-12">
       {/* Header */}
@@ -24,20 +36,14 @@ export default function ServicesPage() {
         </p>
       </div>
 
-      {/* Search */}
-      <div className="relative mt-8 max-w-xl">
-        <Search className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
+      <ServiceSearch />
 
-        <Input placeholder="Search for a service..." className="h-12 pl-10" />
-      </div>
-
-      {/* Content */}
       <div className="mt-10 grid gap-8 lg:grid-cols-[260px_1fr]">
         <aside>
           <ServiceFilters />
         </aside>
 
-        <ServiceGrid />
+        <ServiceGrid result={result} />
       </div>
     </div>
   );
