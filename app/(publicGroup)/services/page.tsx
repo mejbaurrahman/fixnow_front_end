@@ -2,7 +2,8 @@ import { ServiceFilters } from "@/components/services/service-filters";
 import { ServiceGrid } from "@/components/services/service-grid";
 import { ServiceSearch } from "@/components/services/service-search";
 import { getServices } from "../_actions/getServices";
-import { IServiceResponse } from "../_types/types";
+import { CategoriesResponse, IServiceResponse } from "../_types/types";
+import { getCategories } from "../_actions/getCategories";
 
 interface ServicesPageProps {
   searchParams: Promise<{
@@ -17,6 +18,7 @@ export default async function ServicesPage({
   searchParams,
 }: ServicesPageProps) {
   const params = await searchParams;
+  const categories: CategoriesResponse = await getCategories();
 
   const result: IServiceResponse = await getServices(params);
 
@@ -40,7 +42,7 @@ export default async function ServicesPage({
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[260px_1fr]">
         <aside>
-          <ServiceFilters />
+          <ServiceFilters categories={categories} />
         </aside>
 
         <ServiceGrid result={result} />

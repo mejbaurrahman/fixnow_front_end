@@ -8,22 +8,28 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
+import { getCategories } from "@/app/(publicGroup)/_actions/getCategories";
+import { CategoriesResponse } from "@/app/(publicGroup)/_types/types";
 
-const categories = [
-  "Plumbing",
-  "Electrical",
-  "Cleaning",
-  "Painting",
-  "Carpentry",
-];
+// const categories = [
+//   "Plumbing",
+//   "Electrical",
+//   "Cleaning",
+//   "Painting",
+//   "Carpentry",
+// ];
 
 const ratings = [5, 4, 3, 2, 1];
 
-export function ServiceFilters() {
+type CateroiesProps = {
+  categories: CategoriesResponse;
+};
+export function ServiceFilters(props: CateroiesProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
+  // const result: CategoriesResponse = await getCategories();
+  const categories = props.categories.data;
   const selectedCategory = searchParams.get("category");
   const selectedRating = searchParams.get("rating");
   // const selectedLocation = searchParams.get("location") ?? "";
@@ -113,20 +119,20 @@ export function ServiceFilters() {
 
         <div className="mt-4 space-y-3">
           {categories.map((category) => (
-            <div key={category} className="flex items-center gap-3">
+            <div key={category?.id} className="flex items-center gap-3">
               <Checkbox
-                id={category}
-                checked={selectedCategory === category}
+                id={category.id}
+                checked={selectedCategory === category.name}
                 onCheckedChange={(checked) => {
-                  updateFilter("category", checked ? category : null);
+                  updateFilter("category", checked ? category.name : null);
                 }}
               />
 
               <Label
-                htmlFor={category}
+                htmlFor={category.name}
                 className="cursor-pointer text-sm font-normal"
               >
-                {category}
+                {category.name}
               </Label>
             </div>
           ))}

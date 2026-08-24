@@ -2,36 +2,11 @@ import Link from "next/link";
 import { ArrowRight, BriefcaseBusiness } from "lucide-react";
 import { CategoriesResponse } from "../_types/types";
 import { getCategories } from "../_actions/getCategories";
-
-const categories = [
-  {
-    id: "d18b60dc-fd92-4e97-9674-df985b8564f5",
-    name: "Carpentry",
-    description: "Furniture repair, woodwork, and carpentry services",
-    icon: "🪚",
-  },
-  {
-    id: "b33ccd5f-3136-48d8-a787-20f3a2ce7ded",
-    name: "AC Repair",
-    description: "AC repair and maintenance services",
-    icon: "❄️",
-  },
-  {
-    id: "98db1563-a7c1-4dc9-8454-f4ec27cd1d20",
-    name: "Electricity Work",
-    description: "Professional electrical installation and repair",
-    icon: "⚡",
-  },
-  {
-    id: "19d9b1ba-5c4b-4202-9858-1698f30986a5",
-    name: "Electric",
-    description: "Reliable electrical services for your home",
-    icon: "💡",
-  },
-];
+import { MdCategory } from "react-icons/md";
 
 export default async function CategoriesPage() {
   const result: CategoriesResponse = await getCategories();
+  const categories = result?.data;
   console.log(result);
   return (
     <main className="min-h-screen bg-slate-50">
@@ -61,13 +36,13 @@ export default async function CategoriesPage() {
           {categories.map((category) => (
             <Link
               key={category.id}
-              href={`/services?category=${category.id}`}
+              href={`/services?category=${category.name}`}
               className="group"
             >
               <article className="relative h-full overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl">
                 {/* Icon */}
                 <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-100 text-3xl transition-colors duration-300 group-hover:bg-primary/10">
-                  {category.icon}
+                  <MdCategory />
                 </div>
 
                 {/* Content */}
