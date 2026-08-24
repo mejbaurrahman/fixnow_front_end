@@ -3,8 +3,11 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { ServiceFilters } from "@/components/services/service-filters";
 import { ServiceGrid } from "@/components/services/service-grid";
+import { getServices } from "../_actions/getServices";
 
 export default function ServicesPage() {
+  const result = getServices();
+  console.log(result);
   return (
     <div className="container mx-auto px-4 py-12">
       {/* Header */}

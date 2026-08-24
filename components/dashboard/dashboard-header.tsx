@@ -20,16 +20,18 @@ interface DashboardHeaderProps {
 
 export function DashboardHeader({ role }: DashboardHeaderProps) {
   return (
-    <header className="sticky top-0 z-40 flex h-16 w-full shrink-0 items-center justify-between border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/80 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-40 flex h-16 w-full shrink-0 items-center justify-between border-b bg-background/95 px-4 backdrop-blur supports-backdrop-filter:bg-background/80 sm:px-6 lg:px-8">
       {/* Mobile Menu */}
       <div className="lg:hidden">
         <Sheet>
-          <SheetTrigger>
-            <Button variant="outline" size="icon" className="size-9">
-              <Menu className="size-5" />
-              <span className="sr-only">Open navigation menu</span>
-            </Button>
-          </SheetTrigger>
+          <SheetTrigger
+            render={
+              <Button variant="outline" size="icon" className="size-9">
+                <Menu className="size-5" />
+                <span className="sr-only">Open navigation menu</span>
+              </Button>
+            }
+          />
 
           <SheetContent side="left" className="w-280px p-0 sm:w-[320px]">
             <SheetTitle className="sr-only">Dashboard navigation</SheetTitle>

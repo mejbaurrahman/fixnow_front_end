@@ -16,7 +16,7 @@ export const getMe = async () => {
     };
   }
 
-  const res = await fetch(`${process.env.BACKEND_API_URL}/api/auth/me`, {
+  const res = await fetch(`${process.env.BACKEND_API_URL}/auth/me`, {
     headers: {
       // Authorization : accessToken as unknown as string,
       // Authorization : `${accessToken}`,
