@@ -24,7 +24,7 @@ export function ServiceCard(service: IService) {
   return (
     <Link href={`/services/${id}`}>
       <Card className="group h-full overflow-hidden py-0 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-        <div className="relative aspect-[16/10] overflow-hidden">
+        <div className="relative aspect-16/10 overflow-hidden">
           <Image
             src={
               img

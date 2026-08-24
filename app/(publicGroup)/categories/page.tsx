@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, BriefcaseBusiness } from "lucide-react";
+import { CategoriesResponse } from "../_types/types";
+import { getCategories } from "../_actions/getCategories";
 
 const categories = [
   {
@@ -28,7 +30,9 @@ const categories = [
   },
 ];
 
-export default function CategoriesPage() {
+export default async function CategoriesPage() {
+  const result: CategoriesResponse = await getCategories();
+  console.log(result);
   return (
     <main className="min-h-screen bg-slate-50">
       {/* Hero */}
