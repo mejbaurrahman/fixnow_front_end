@@ -68,3 +68,60 @@ export interface CategoriesResponse {
   message: string;
   data: Category[];
 }
+
+// technicians response
+
+export interface Availability {
+  id: string;
+  technicianId: string;
+  startTime: string;
+  endTime: string;
+  isAvailable: boolean;
+}
+
+export interface TechnicianProfile {
+  id: string;
+  userId: string;
+  bio: string | null;
+  experience: number;
+  hourlyRate: number;
+  location: string | null;
+  rating: number;
+  createdAt: string;
+  updatedAt: string;
+  availability: Availability[];
+}
+
+export interface ReviewReceived {
+  id: string;
+  bookingId: string;
+  customerId: string;
+  technicianId: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Technician {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  image: string | null;
+  role: "TECHNICIAN";
+  status: "UNBAN";
+  address: string | null;
+  city: string | null;
+  createdAt: string;
+  updatedAt: string;
+  technicianProfile: TechnicianProfile;
+  reviewReceived: ReviewReceived[];
+}
+
+export interface TechniciansResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: Technician[];
+}

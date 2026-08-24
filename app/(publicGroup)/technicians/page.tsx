@@ -2,44 +2,48 @@ import { Search } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { TechnicianCard } from "@/components/technicians/technician-card";
+import { getTechnicians } from "../_actions/getTechnicians";
+import { TechniciansResponse } from "../_types/types";
 
-const technicians = [
-  {
-    id: "1",
-    name: "Abdul Karim",
-    profession: "Master Plumber",
-    location: "Dhaka",
-    rating: 4.9,
-    reviews: 128,
-    experience: 8,
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=500&auto=format&fit=crop",
-  },
-  {
-    id: "2",
-    name: "Rahim Ahmed",
-    profession: "Electrical Expert",
-    location: "Dhaka",
-    rating: 4.8,
-    reviews: 96,
-    experience: 6,
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=500&auto=format&fit=crop",
-  },
-  {
-    id: "3",
-    name: "Hasan Mahmud",
-    profession: "Cleaning Expert",
-    location: "Dhaka",
-    rating: 4.9,
-    reviews: 157,
-    experience: 7,
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop",
-  },
-];
+// const technicians = [
+//   {
+//     id: "1",
+//     name: "Abdul Karim",
+//     profession: "Master Plumber",
+//     location: "Dhaka",
+//     rating: 4.9,
+//     reviews: 128,
+//     experience: 8,
+//     image:
+//       "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=500&auto=format&fit=crop",
+//   },
+//   {
+//     id: "2",
+//     name: "Rahim Ahmed",
+//     profession: "Electrical Expert",
+//     location: "Dhaka",
+//     rating: 4.8,
+//     reviews: 96,
+//     experience: 6,
+//     image:
+//       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=500&auto=format&fit=crop",
+//   },
+//   {
+//     id: "3",
+//     name: "Hasan Mahmud",
+//     profession: "Cleaning Expert",
+//     location: "Dhaka",
+//     rating: 4.9,
+//     reviews: 157,
+//     experience: 7,
+//     image:
+//       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop",
+//   },
+// ];
 
-export default function TechniciansPage() {
+export default async function TechniciansPage() {
+  const result: TechniciansResponse = await getTechnicians();
+  const technicians = result?.data;
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-2xl">
@@ -65,7 +69,7 @@ export default function TechniciansPage() {
 
       <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {technicians.map((technician) => (
-          <TechnicianCard key={technician.id} {...technician} />
+          <TechnicianCard key={technician.id} technican={technician} />
         ))}
       </div>
     </div>
