@@ -10,7 +10,7 @@ export const getTechnicians = async () => {
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch categories");
+    throw new Error("Failed to fetch technicians");
   }
 
   const result = await res.json();
