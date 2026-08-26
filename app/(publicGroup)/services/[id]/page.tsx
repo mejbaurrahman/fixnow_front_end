@@ -106,7 +106,7 @@ export default async function ServiceDetailsPage({
             </p>
 
             <Link
-              href={`/technicians/:${findService?.technician?.id}`}
+              href={`/technicians/${findService?.technician?.id}`}
               className="mt-6 inline-flex h-11 w-full items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
             >
               Choose This Technician

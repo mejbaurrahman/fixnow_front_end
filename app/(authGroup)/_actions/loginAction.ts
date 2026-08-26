@@ -18,8 +18,6 @@ export const loginAction = async (
     email,
     password,
   };
-
-  console.log(payload);
   const res = await fetch(`${process.env.BACKEND_API_URL}/auth/login`, {
     method: "POST",
     headers: {

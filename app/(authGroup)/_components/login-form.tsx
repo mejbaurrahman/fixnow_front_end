@@ -24,7 +24,6 @@ import { toast } from "sonner";
 
 const initialState: LoginState = {
   success: false,
-
   statusCode: 400,
   message: "",
   data: {

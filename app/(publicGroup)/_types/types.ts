@@ -115,6 +115,7 @@ export interface Technician {
   city: string | null;
   createdAt: string;
   updatedAt: string;
+  services: IService[];
   technicianProfile: TechnicianProfile;
   reviewReceived: ReviewReceived[];
 }
@@ -125,3 +126,61 @@ export interface TechniciansResponse {
   message: string;
   data: Technician[];
 }
+////////
+export type AvailabilitySlot = {
+  time: string;
+  isBooked: boolean;
+};
+
+export type AvailabilityData = {
+  availabilityId: string | null;
+  date: string;
+  slots: AvailabilitySlot[];
+};
+
+export type GetAvailabilityResponse = {
+  success: boolean;
+  message?: string;
+  data: AvailabilityData;
+};
+
+export type CreateBookingPayload = {
+  technicianId: string;
+  serviceId: string;
+  availabilityId: string;
+  bookingDate: string;
+  slot: string;
+  totalAmount: number;
+  note?: string;
+};
+
+export type Booking = {
+  id: string;
+  customerId: string;
+  technicianId: string;
+  serviceId: string;
+  availabilityId: string;
+  bookingDate: string;
+  slot: string;
+  status:
+    | "REQUESTED"
+    | "ACCEPTED"
+    | "DECLINED"
+    | "CANCELLED"
+    | "COMPLETED"
+    | "PAID"
+    | "IN_PROGRESS";
+
+  totalAmount: number;
+
+  note: string | null;
+
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateAvailabilityPayload = {
+  date: string;
+  slots: string[];
+  isAvailable?: boolean;
+};
