@@ -103,7 +103,7 @@ export function RegisterForm() {
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="At least 8 characters"
+                  placeholder="At least 6 characters"
                   minLength={6}
                   required
                   className="pr-11"

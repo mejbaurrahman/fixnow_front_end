@@ -1,36 +1,18 @@
-import { CalendarDays } from "lucide-react";
+import { ArrowRight, CalendarDays } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { BookingStatus } from "@/components/dashboard/booking-status";
+import { getBookings } from "../../_actions/getBookings";
+import { IBooking } from "@/lib/responseType";
+import { Booking } from "@/app/(publicGroup)/_types/types";
+import { MdDetails } from "react-icons/md";
+import Link from "next/link";
 
-export default function CustomerBookingsPage() {
-  const bookings = [
-    {
-      id: "BK-1001",
-      service: "Home Cleaning",
-      technician: "Abdul Karim",
-      date: "Aug 25, 2026",
-      time: "10:00 AM",
-      status: "ACCEPTED" as const,
-    },
-    {
-      id: "BK-1002",
-      service: "Plumbing Repair",
-      technician: "Rahim Ahmed",
-      date: "Aug 27, 2026",
-      time: "02:00 PM",
-      status: "PAID" as const,
-    },
-    {
-      id: "BK-1003",
-      service: "Electrical Service",
-      technician: "Hasan Mahmud",
-      date: "Aug 20, 2026",
-      time: "11:00 AM",
-      status: "COMPLETED" as const,
-    },
-  ];
+export default async function CustomerBookingsPage() {
+  const result = await getBookings();
 
+  const bookings = result?.data ? result.data : [];
+  console.log(bookings);
   return (
     <div className="p-4 md:p-8">
       <h1 className="text-2xl font-bold md:text-3xl">My Bookings</h1>
@@ -63,35 +45,40 @@ export default function CustomerBookingsPage() {
                 <th className="px-5 py-4 text-right text-sm font-medium">
                   Action
                 </th>
+                <th className="px-5 py-4 text-right text-sm font-medium">
+                  Details
+                </th>
               </tr>
             </thead>
 
             <tbody className="divide-y">
-              {bookings.map((booking) => (
+              {bookings.map((booking: Booking) => (
                 <tr key={booking.id}>
                   <td className="px-5 py-4">
-                    <p className="font-medium">{booking.service}</p>
+                    <p className="font-medium">{booking?.service?.title}</p>
 
                     <p className="text-xs text-muted-foreground">
                       {booking.id}
                     </p>
                   </td>
 
-                  <td className="px-5 py-4 text-sm">{booking.technician}</td>
+                  <td className="px-5 py-4 text-sm">
+                    {booking?.technician?.name}
+                  </td>
 
                   <td className="px-5 py-4 text-sm">
                     <div className="flex items-center gap-2">
                       <CalendarDays className="size-4 text-muted-foreground" />
-                      {booking.date}
+                      {booking?.bookingDate}
                     </div>
 
                     <span className="text-xs text-muted-foreground">
-                      {booking.time}
+                      {booking?.slot}
                     </span>
                   </td>
 
                   <td className="px-5 py-4">
-                    <BookingStatus status={booking.status} />
+                    <BookingStatus status={booking?.status} />
                   </td>
 
                   <td className="px-5 py-4 text-right">
@@ -105,6 +92,13 @@ export default function CustomerBookingsPage() {
                       </Button>
                     )}
                   </td>
+                  <td className="px-5 py-4 text-right">
+                    <Link href={`/dashboard/bookings/${booking.id}`}>
+                      <Button>
+                        <ArrowRight />
+                      </Button>
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -112,11 +106,11 @@ export default function CustomerBookingsPage() {
         </div>
 
         <div className="divide-y md:hidden">
-          {bookings.map((booking) => (
+          {bookings.map((booking: Booking) => (
             <div key={booking.id} className="space-y-4 p-5">
               <div className="flex justify-between gap-4">
                 <div>
-                  <p className="font-medium">{booking.service}</p>
+                  <p className="font-medium">{booking?.service?.title}</p>
 
                   <p className="text-xs text-muted-foreground">{booking.id}</p>
                 </div>
@@ -125,12 +119,18 @@ export default function CustomerBookingsPage() {
               </div>
 
               <p className="text-sm text-muted-foreground">
-                {booking.technician}
+                {booking?.technician?.name}
               </p>
 
               <p className="text-sm text-muted-foreground">
-                {booking.date} · {booking.time}
+                {booking?.bookingDate} · {booking?.slot}
               </p>
+
+              <Link href={`/dashboard/bookings/${booking.id}`}>
+                <Button>
+                  <ArrowRight />
+                </Button>
+              </Link>
             </div>
           ))}
         </div>

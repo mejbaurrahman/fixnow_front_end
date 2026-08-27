@@ -154,33 +154,75 @@ export type CreateBookingPayload = {
   note?: string;
 };
 
-export type Booking = {
-  id: string;
-  customerId: string;
-  technicianId: string;
-  serviceId: string;
-  availabilityId: string;
-  bookingDate: string;
-  slot: string;
-  status:
-    | "REQUESTED"
-    | "ACCEPTED"
-    | "DECLINED"
-    | "CANCELLED"
-    | "COMPLETED"
-    | "PAID"
-    | "IN_PROGRESS";
-
-  totalAmount: number;
-
-  note: string | null;
-
-  createdAt: string;
-  updatedAt: string;
-};
-
 export type UpdateAvailabilityPayload = {
   date: string;
   slots: string[];
   isAvailable?: boolean;
 };
+export interface BookingResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: Booking[];
+}
+
+export interface Booking {
+  id: string;
+
+  customerId: string;
+
+  technicianId: string;
+
+  serviceId: string;
+
+  bookingDate: string;
+
+  slot: string;
+
+  status: BookingStatus;
+
+  totalAmount: number;
+
+  availabilityId: string;
+
+  note: string | null;
+
+  createdAt: string;
+
+  updatedAt: string;
+
+  technician: Technician;
+
+  service: IService;
+
+  payment: Payment | null;
+
+  review: Review | null;
+}
+
+export interface Payment {
+  id: string;
+
+  amount: number;
+
+  status: string;
+
+  createdAt: string;
+}
+
+export interface Review {
+  id: string;
+
+  rating: number;
+
+  comment: string;
+
+  createdAt: string;
+}
+
+export type BookingStatus =
+  | "REQUESTED"
+  | "ACCEPTED"
+  | "DECLINED"
+  | "CANCELLED"
+  | "COMPLETED";

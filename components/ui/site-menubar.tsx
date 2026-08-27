@@ -110,6 +110,10 @@ export function SiteMenubar({
       return;
     }
 
+    if (action == "profile") {
+      router.push("/profile");
+    }
+
     if (action === "logout") {
       await logout();
       toast.success("User Logged Out Successfully!");

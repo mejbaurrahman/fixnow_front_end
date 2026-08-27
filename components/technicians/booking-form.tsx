@@ -73,7 +73,6 @@ export function BookingForm({
 
   const formatDate = (date: Date) => {
     const newDate = date.toISOString();
-    console.log("Date", newDate);
     return newDate;
   };
 
