@@ -4,7 +4,6 @@ export const getCategories = async () => {
       "content-type": "application/json",
     },
     next: {
-      revalidate: 60 * 60 * 24 * 7,
       tags: ["categories"],
     },
   });

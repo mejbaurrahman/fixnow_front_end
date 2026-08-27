@@ -1,34 +1,109 @@
-import { Activity, DollarSign, UserRound, CalendarCheck } from "lucide-react";
+import { Users, Wrench, CalendarCheck, Layers, TrendingUp } from "lucide-react";
 
-import { StatCard } from "@/components/dashboard/stat-card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function AdminDashboard() {
+import Link from "next/link";
+import { getUsers } from "../_actions/getUsers";
+import { getTechnicians } from "@/app/(publicGroup)/_actions/getTechnicians";
+import { getBookingsByAdmin } from "../_actions/getBookings";
+import { getCategories } from "@/app/(publicGroup)/_actions/getCategories";
+
+export default async function AdminDashboardPage() {
+  const result = await getUsers();
+  const users = result?.data.length || 0;
+  const result2 = await getTechnicians();
+  const technicians = result?.data.length || 0;
+  const result3 = await getBookingsByAdmin();
+  const bookings = result?.data.length || 0;
+  const result4 = await getCategories();
+  const categories = result?.data.length || 0;
+  const stats = [
+    {
+      title: "Total Users",
+      value: users,
+      icon: Users,
+    },
+
+    {
+      title: "Technicians",
+      value: technicians,
+      icon: Wrench,
+    },
+
+    {
+      title: "Bookings",
+      value: bookings,
+      icon: CalendarCheck,
+    },
+
+    {
+      title: "Categories",
+      value: categories,
+      icon: Layers,
+    },
+  ];
+
   return (
-    <div className="p-4 md:p-8">
+    <div className="space-y-8 p-6">
       <div>
-        <p className="text-sm text-muted-foreground">Administration</p>
+        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
 
-        <h1 className="mt-1 text-2xl font-bold md:text-3xl">
-          Platform Overview
-        </h1>
-
-        <p className="mt-2 text-muted-foreground">
-          Monitor your FixItNow platform.
-        </p>
+        <p className="text-muted-foreground mt-2">Manage FixItNow platform</p>
       </div>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard title="Total Users" value="5,240" icon={<UserRound />} />
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        {stats.map((item) => {
+          const Icon = item.icon;
 
-        <StatCard
-          title="Active Bookings"
-          value="342"
-          icon={<CalendarCheck />}
-        />
+          return (
+            <Card key={item.title}>
+              <CardContent className="flex items-center justify-between p-6">
+                <div>
+                  <p className="text-sm text-muted-foreground">{item.title}</p>
 
-        <StatCard title="Total Revenue" value="$42,500" icon={<DollarSign />} />
+                  <h2 className="mt-2 text-3xl font-bold">{item.value}</h2>
+                </div>
 
-        <StatCard title="Platform Activity" value="94%" icon={<Activity />} />
+                <Icon className="size-10 text-primary" />
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+      <div>
+        <h2 className="text-xl font-semibold mb-4">Management</h2>
+
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <Link href="/admin-dashboard/users">
+            <Card className="hover:border-primary transition cursor-pointer">
+              <CardHeader>
+                <CardTitle>Users Management</CardTitle>
+              </CardHeader>
+
+              <CardContent>View users, roles and status</CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/admin-dashboard/categories">
+            <Card className="hover:border-primary transition cursor-pointer">
+              <CardHeader>
+                <CardTitle>Categories</CardTitle>
+              </CardHeader>
+
+              <CardContent>Create and manage service categories</CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/admin-dashboard/bookings">
+            <Card className="hover:border-primary transition cursor-pointer">
+              <CardHeader>
+                <CardTitle>Bookings</CardTitle>
+              </CardHeader>
+
+              <CardContent>Monitor all service bookings</CardContent>
+            </Card>
+          </Link>
+        </div>
       </div>
     </div>
   );

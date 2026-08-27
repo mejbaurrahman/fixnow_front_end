@@ -29,7 +29,6 @@ export interface Booking {
   createdAt: string;
 
   updatedAt: string;
-
   technician: Technician;
 
   service: Service;
@@ -120,7 +119,7 @@ export interface UserProfile {
 
   role: "CUSTOMER" | "TECHNICIAN" | "ADMIN";
 
-  status: string;
+  status: "BAN" | "UNBAN";
 
   address: string | null;
 

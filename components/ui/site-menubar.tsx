@@ -30,12 +30,6 @@ export type MenuItem = {
   external?: boolean;
 };
 
-// const defaultMenuItems: MenuItem[] = [
-//   { label: "Discover", href: "#discover" },
-//   { label: "Features", href: "#features" },
-//   { label: "Pricing", href: "#pricing" },
-// ];
-
 type SiteMenubarProps = {
   siteName: string;
   menuItems: MenuItem[];

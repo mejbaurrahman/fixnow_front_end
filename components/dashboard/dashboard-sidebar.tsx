@@ -3,7 +3,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   CalendarCheck,
@@ -14,9 +14,13 @@ import {
   UserRound,
   Clock3,
   Wrench,
+  LogOutIcon,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
+import { logout } from "@/service/logout";
+import { toast } from "sonner";
 
 export type DashboardRole = "customer" | "technician" | "admin";
 
@@ -95,6 +99,13 @@ export function DashboardSidebar({ role, onNavigate }: DashboardSidebarProps) {
   const pathname = usePathname();
 
   const items = menuItems[role];
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logout();
+    toast.success("User Logged Out Successfully!");
+    router.push("/login");
+  };
 
   return (
     <div className="flex h-full min-h-0 flex-col">
@@ -149,15 +160,23 @@ export function DashboardSidebar({ role, onNavigate }: DashboardSidebarProps) {
 
       {/* Settings */}
       <div className="shrink-0 border-t p-4">
-        <Link
-          href="/settings"
-          onClick={onNavigate}
-          className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        <Button
+          className="
+      w-full
+      bg-white
+      text-black
+      border
+      border-gray-200
+      hover:bg-gray-100
+      font-medium
+      px-5
+      py-3
+    "
+          onClick={handleLogout}
         >
-          <Settings className="size-4 shrink-0" />
-
-          <span>Settings</span>
-        </Link>
+          <LogOutIcon className="mr-2 size-5 text-red-500" />
+          Logout
+        </Button>
       </div>
     </div>
   );

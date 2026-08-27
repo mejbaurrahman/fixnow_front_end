@@ -51,3 +51,29 @@ export const getBookingsById = async (id: string) => {
 
   return result;
 };
+
+export const getBookingsByAdmin = async () => {
+  const cookieStore = await cookies();
+
+  const token = cookieStore.get("accessToken")?.value;
+
+  if (!token) {
+    throw new Error("Unauthorized");
+  }
+
+  const res = await fetch(`${process.env.BACKEND_API_URL}/admin/bookings`, {
+    headers: {
+      "content-type": "application/json",
+
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch bookings");
+  }
+
+  const result = await res.json();
+
+  return result;
+};

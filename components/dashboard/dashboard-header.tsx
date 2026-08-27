@@ -54,13 +54,6 @@ export function DashboardHeader({ role }: DashboardHeaderProps) {
       </div>
 
       {/* Right side */}
-      <div className="ml-auto flex items-center gap-2">
-        <Button variant="ghost" size="icon" className="size-9">
-          <Bell className="size-5" />
-
-          <span className="sr-only">Notifications</span>
-        </Button>
-      </div>
     </header>
   );
 }
