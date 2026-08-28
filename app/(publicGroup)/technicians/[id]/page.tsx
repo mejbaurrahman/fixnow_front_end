@@ -242,7 +242,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 import { BookingForm } from "@/components/technicians/booking-form";
 
-import { getTechnicians } from "../../_actions/getTechnicians";
+import { getReviews, getTechnicians } from "../../_actions/getTechnicians";
 
 import { IService, Technician, TechniciansResponse } from "../../_types/types";
 import { IUser } from "@/lib/responseType";
@@ -271,6 +271,18 @@ export default async function TechnicianProfilePage({
       </div>
     );
   }
+
+  const reviewsResult = await getReviews();
+
+  const reviews = reviewsResult?.data ?? [];
+
+  const technicianReviews = reviews
+    .filter((review: any) => review.technicianId === id)
+    .sort(
+      (a: any, b: any) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    )
+    .slice(0, 10);
   return (
     <div className="container mx-auto px-4 py-10">
       <Link
@@ -346,27 +358,7 @@ export default async function TechnicianProfilePage({
             </p>
           </section>
 
-          <section className="mt-8">
-            <h2 className="text-2xl font-bold">Services</h2>
-
-            <div className="mt-5 space-y-4">
-              {findTechnician?.services?.map((service: IService) => (
-                <Card key={service.id}>
-                  <CardContent className="p-5">
-                    <div>
-                      <p className="font-semibold">{service.title}</p>
-
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        Professional service
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </section>
-
-          <section className="mt-8">
+          {/* <section className="mt-8">
             <h2 className="text-2xl font-bold">Customer reviews</h2>
 
             <div className="mt-5 space-y-4">
@@ -401,6 +393,60 @@ export default async function TechnicianProfilePage({
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </section> */}
+          <section className="mt-8">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">Customer reviews</h2>
+
+              <span className="text-muted-foreground">
+                {technicianReviews.length} Reviews
+              </span>
+            </div>
+
+            <div className="mt-5 space-y-4">
+              {technicianReviews.length === 0 ? (
+                <Card>
+                  <CardContent className="p-6 text-center text-muted-foreground">
+                    No reviews have been submitted yet.
+                  </CardContent>
+                </Card>
+              ) : (
+                technicianReviews.map((review: any) => (
+                  <Card key={review.id}>
+                    <CardContent className="p-5">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <p className="font-semibold">
+                            {review.customer?.name}
+                          </p>
+
+                          <p className="text-sm text-muted-foreground">
+                            {review.customer?.email}
+                          </p>
+                        </div>
+
+                        <div className="flex">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <Star
+                              key={star}
+                              className={
+                                star <= review.rating
+                                  ? "size-4 fill-yellow-400 text-yellow-400"
+                                  : "size-4 text-muted-foreground"
+                              }
+                            />
+                          ))}
+                        </div>
+                      </div>
+
+                      <p className="mt-4 text-sm leading-6 text-muted-foreground">
+                        {review.comment}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))
+              )}
             </div>
           </section>
         </div>
