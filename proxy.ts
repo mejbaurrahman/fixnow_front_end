@@ -7,7 +7,7 @@ import { getNewAccessToken } from "./service/refreshToken";
 import { jwtUtils } from "./utils/jwt";
 
 const AUTH_ROUTES = ["/login", "/register"];
-const PUBLIC_ROUTES = ["/", "/services"];
+const PUBLIC_ROUTES = ["/", "/services", "/categories", "/technicians"];
 
 // This function can be marked `async` if using `await` inside
 export async function proxy(request: NextRequest) {
