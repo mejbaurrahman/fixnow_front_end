@@ -357,44 +357,6 @@ export default async function TechnicianProfilePage({
               {findTechnician?.technicianProfile?.bio}
             </p>
           </section>
-
-          {/* <section className="mt-8">
-            <h2 className="text-2xl font-bold">Customer reviews</h2>
-
-            <div className="mt-5 space-y-4">
-              {[
-                {
-                  name: "Rahim Ahmed",
-                  text: "Very professional and arrived on time.",
-                },
-                {
-                  name: "Karim Hasan",
-                  text: "Excellent work. Highly recommended.",
-                },
-              ].map((review) => (
-                <Card key={review.name}>
-                  <CardContent className="p-5">
-                    <div className="flex items-center gap-2">
-                      <div className="flex">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <Star
-                            key={star}
-                            className="size-4 fill-yellow-400 text-yellow-400"
-                          />
-                        ))}
-                      </div>
-
-                      <span className="font-medium">{review.name}</span>
-                    </div>
-
-                    <p className="mt-3 text-sm text-muted-foreground">
-                      {review.text}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </section> */}
           <section className="mt-8">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold">Customer reviews</h2>
