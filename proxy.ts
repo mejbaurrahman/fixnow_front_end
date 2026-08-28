@@ -106,44 +106,9 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL("/not-found", request.url));
   }
 
-  // const subscriptionStatus = await getSubscriptionStatus();
-
-  // const isActive = Boolean(
-  //     subscriptionStatus?.success && subscriptionStatus.data?.isSubscribed,
-  // );
-
-  //   if (pathname === "/premium") {
-  //     const subscriptionStatus = await getSubscriptionStatus();
-
-  //     const isActive = Boolean(
-  //       subscriptionStatus?.success && subscriptionStatus.data?.isSubscribed,
-  //     );
-
-  //     if (!isActive) {
-  //       return NextResponse.redirect(new URL("/payment", request.url));
-  //     }
-  //   }
-
-  // if(pathname === "/payment"){
-  //     // const subscriptionStatus = await getSubscriptionStatus();
-
-  //     // const isActive = Boolean(
-  //     //     subscriptionStatus?.success && subscriptionStatus.data?.isSubscribed,
-  //     // );
-
-  //     if (isActive) {
-  //         return NextResponse.redirect(new URL("/premium", request.url))
-  //     }
-  // }
-
-  // return NextResponse.redirect(new URL('/', request.url))
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    // '/dashboard/:path*',
-    // '/admin-dashboard/:path*',
-    "/((?!api|_next/static|favicon.ico|_next/image|.*\\.png$).*)",
-  ],
+  matcher: ["/((?!api|_next/static|favicon.ico|_next/image|.*\\.png$).*)"],
 };
