@@ -1,26 +1,18 @@
 import { CreditCard } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
+import { getBookings } from "../../_actions/getBookings";
+import { IBooking } from "@/lib/responseType";
+import { Booking } from "../../_types/types";
 
-export default function PaymentsPage() {
-  const payments = [
-    {
-      id: "PAY-1001",
-      booking: "BK-1001",
-      service: "Home Cleaning",
-      amount: "$45",
-      date: "Aug 20, 2026",
-      status: "Paid",
-    },
-    {
-      id: "PAY-1002",
-      booking: "BK-1002",
-      service: "Plumbing Repair",
-      amount: "$60",
-      date: "Aug 18, 2026",
-      status: "Paid",
-    },
-  ];
+export default async function PaymentsPage() {
+  const result = await getBookings();
+  const bookings = result?.data ? result.data : [];
+
+  const myPaidBookings = bookings?.filter(
+    (booking: IBooking) =>
+      booking?.status != "ACCEPTED" || "DECLINED" || "REQUESTED" || "CANCELLED",
+  );
 
   return (
     <div className="p-4 md:p-8">
@@ -39,10 +31,11 @@ export default function PaymentsPage() {
       </div>
 
       <div className="mt-8 overflow-x-auto rounded-xl border bg-card">
-        <table className="w-full min-w-[700px]">
+        <table className="w-full min-w-700px">
           <thead className="border-b bg-muted/40">
             <tr>
-              <th className="px-5 py-4 text-left text-sm">Payment ID</th>
+              <th className="px-5 py-4 text-left text-sm">ID</th>
+              <th className="px-5 py-4 text-left text-sm">Technician</th>
 
               <th className="px-5 py-4 text-left text-sm">Service</th>
 
@@ -55,23 +48,22 @@ export default function PaymentsPage() {
           </thead>
 
           <tbody className="divide-y">
-            {payments.map((payment) => (
+            {myPaidBookings.map((payment: Booking) => (
               <tr key={payment.id}>
                 <td className="px-5 py-4">
-                  <p className="font-medium">{payment.id}</p>
-
-                  <p className="text-xs text-muted-foreground">
-                    {payment.booking}
-                  </p>
+                  <p className="font-medium">{payment.id.slice(-8)}</p>
                 </td>
 
-                <td className="px-5 py-4 text-sm">{payment.service}</td>
+                <td className="px-5 py-4 text-sm">{payment.technician.name}</td>
+                <td className="px-5 py-4 text-sm">{payment.service.title}</td>
 
                 <td className="px-5 py-4 text-sm text-muted-foreground">
-                  {payment.date}
+                  {payment.updatedAt}
                 </td>
 
-                <td className="px-5 py-4 font-semibold">{payment.amount}</td>
+                <td className="px-5 py-4 font-semibold">
+                  {payment.totalAmount}
+                </td>
 
                 <td className="px-5 py-4">
                   <Badge variant="secondary">{payment.status}</Badge>

@@ -17,10 +17,6 @@ export const getBookingsByTechnician = async () => {
 
         "content-type": "application/json",
       },
-
-      next: {
-        tags: ["technician-bookings"],
-      },
     },
   );
 
@@ -63,8 +59,6 @@ export const updateBookingStatus = async (
   if (!res.ok) {
     throw new Error(result.message || "Status update failed");
   }
-
-  revalidateTag("technician-bookings", "max");
 
   return result;
 };

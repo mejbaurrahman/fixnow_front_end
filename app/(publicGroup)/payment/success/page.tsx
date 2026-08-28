@@ -19,10 +19,7 @@ export default function PaymentSuccessPage() {
         </p>
 
         <div className="mt-8 flex justify-center gap-3">
-          <Link
-            href="/dashboard/customer/bookings"
-            className={buttonVariants()}
-          >
+          <Link href="/dashboard/bookings" className={buttonVariants()}>
             View Booking
             <ArrowRight />
           </Link>

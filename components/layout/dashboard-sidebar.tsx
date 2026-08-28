@@ -21,17 +21,17 @@ import { Button } from "@/components/ui/button";
 const customerItems = [
   {
     label: "Overview",
-    href: "/dashboard/customer",
+    href: "/dashboard",
     icon: LayoutDashboard,
   },
   {
     label: "My Bookings",
-    href: "/dashboard/customer/bookings",
+    href: "/dashboard/bookings",
     icon: ClipboardList,
   },
   {
     label: "Payments",
-    href: "/dashboard/customer/payments",
+    href: "/dashboard/payments",
     icon: CreditCard,
   },
 ];

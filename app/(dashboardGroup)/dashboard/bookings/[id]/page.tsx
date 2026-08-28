@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 import { BookingStatus } from "@/components/dashboard/booking-status";
 import { getBookingsById } from "@/app/(dashboardGroup)/_actions/getBookings";
+import PayNowButton from "@/components/dashboard/pay-now-button";
 
 export default async function BookingDetailsPage({
   params,
@@ -185,7 +186,7 @@ export default async function BookingDetailsPage({
                       <p className="mt-1">You can proceed with payment now.</p>
                     </div>
 
-                    <Button className="w-full">Pay Now</Button>
+                    <PayNowButton bookingId={booking.id} />
                   </div>
                 )}
 

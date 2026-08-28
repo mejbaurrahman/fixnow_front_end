@@ -7,12 +7,13 @@ import { IBooking } from "@/lib/responseType";
 import { Booking } from "@/app/(publicGroup)/_types/types";
 import { MdDetails } from "react-icons/md";
 import Link from "next/link";
+import PayNowButton from "@/components/dashboard/pay-now-button";
 
 export default async function CustomerBookingsPage() {
   const result = await getBookings();
 
   const bookings = result?.data ? result.data : [];
-  console.log(bookings);
+  // console.log(bookings);
   return (
     <div className="p-4 md:p-8">
       <h1 className="text-2xl font-bold md:text-3xl">My Bookings</h1>
@@ -83,7 +84,7 @@ export default async function CustomerBookingsPage() {
 
                   <td className="px-5 py-4 text-right">
                     {booking.status === "ACCEPTED" && (
-                      <Button size="sm">Pay Now</Button>
+                      <PayNowButton bookingId={booking.id} />
                     )}
 
                     {booking.status === "COMPLETED" && (
@@ -125,7 +126,17 @@ export default async function CustomerBookingsPage() {
               <p className="text-sm text-muted-foreground">
                 {booking?.bookingDate} · {booking?.slot}
               </p>
+              <div>
+                {booking.status === "ACCEPTED" && (
+                  <PayNowButton bookingId={booking.id} />
+                )}
 
+                {booking.status === "COMPLETED" && (
+                  <Button size="sm" variant="outline">
+                    Review
+                  </Button>
+                )}
+              </div>
               <Link href={`/dashboard/bookings/${booking.id}`}>
                 <Button>
                   <ArrowRight />

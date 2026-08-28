@@ -4,7 +4,14 @@ export interface IBooking {
   technicianId: string;
   serviceId: string;
   bookingDate: string;
-  status: "REQUESTED" | "ACCEPTED" | "REJECTED" | "COMPLETED" | "CANCELLED";
+  status:
+    | "REQUESTED"
+    | "ACCEPTED"
+    | "DECLINED"
+    | "COMPLETED"
+    | "IN PROGRESS"
+    | "CANCELLED"
+    | "PAID";
   totalAmount: number;
   availabilityId: string;
   note: string | null;
