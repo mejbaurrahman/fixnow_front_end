@@ -20,13 +20,7 @@ export function UserProfileDetails({ profile }: { profile: UserProfile }) {
 
   return (
     <div className="space-y-10">
-      {/* ======================
-          HEADER PROFILE
-      ======================= */}
-
       <div className="flex flex-col gap-6 rounded-2xl border bg-background p-6 md:flex-row">
-        {/* Image */}
-
         <div>
           {profile.image ? (
             <Image

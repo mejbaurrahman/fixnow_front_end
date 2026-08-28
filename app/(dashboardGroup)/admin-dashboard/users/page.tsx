@@ -56,7 +56,7 @@ export default async function UsersPage() {
               </thead>
 
               <tbody className="divide-y">
-                {users.map((user) => (
+                {users.map((user: UserProfile) => (
                   <tr key={user.id} className="transition hover:bg-muted/30">
                     <td className="px-6 py-4 font-medium">{user.name}</td>
 

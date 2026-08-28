@@ -54,36 +54,36 @@ export const getAvailability = async (
   return result;
 };
 
-export const updateAvailability = async (
-  technicianId: string,
-  payload: UpdateAvailabilityPayload,
-) => {
-  const headers = await getHeaders();
+// export const updateAvailability = async (
+//   technicianId: string,
+//   payload: UpdateAvailabilityPayload,
+// ) => {
+//   const headers = await getHeaders();
 
-  const res = await fetch(
-    `${API_URL}/technicians/${technicianId}/availability`,
-    {
-      method: "PATCH",
-      headers,
+//   const res = await fetch(
+//     `${API_URL}/technicians/${technicianId}/availability`,
+//     {
+//       method: "PATCH",
+//       headers,
 
-      body: JSON.stringify(payload),
+//       body: JSON.stringify(payload),
 
-      cache: "no-store",
-    },
-  );
+//       cache: "no-store",
+//     },
+//   );
 
-  const result = await res.json();
+//   const result = await res.json();
 
-  if (!res.ok) {
-    throw new Error(
-      result.message || "Failed to update technician availability",
-    );
-  }
+//   if (!res.ok) {
+//     throw new Error(
+//       result.message || "Failed to update technician availability",
+//     );
+//   }
 
-  revalidatePath(`/technicians/${technicianId}`);
+//   revalidatePath(`/technicians/${technicianId}`);
 
-  return result;
-};
+//   return result;
+// };
 
 export const createBooking = async (payload: CreateBookingPayload) => {
   const headers = await getHeaders();
