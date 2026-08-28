@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { logout } from "@/service/logout";
 import { toast } from "sonner";
+import { FaServicestack } from "react-icons/fa";
 
 export type DashboardRole = "customer" | "technician" | "admin";
 
@@ -63,6 +64,11 @@ const menuItems = {
       title: "Profile",
       href: "/technician-dashboard/profile",
       icon: UserRound,
+    },
+    {
+      title: "My Services",
+      href: "/technician-dashboard/services",
+      icon: Wrench,
     },
   ],
 
@@ -139,7 +145,7 @@ export function DashboardSidebar({ role, onNavigate }: DashboardSidebarProps) {
 
             return (
               <Link
-                key={item.href}
+                key={item.title}
                 href={item.href}
                 onClick={onNavigate}
                 className={cn(
