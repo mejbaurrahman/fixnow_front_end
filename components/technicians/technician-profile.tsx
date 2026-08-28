@@ -133,7 +133,7 @@ export default function TechnicianProfile({ profile }: { profile: any }) {
               <MapPin />
 
               <div>
-                <p className="text-sm text-muted-foreground">City</p>
+                <p className="text-sm text-muted-foreground">Location</p>
 
                 <p className="font-semibold">{technician?.location || "N/A"}</p>
               </div>
