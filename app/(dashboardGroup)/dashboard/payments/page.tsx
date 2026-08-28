@@ -11,7 +11,9 @@ export default async function PaymentsPage() {
 
   const myPaidBookings = bookings?.filter(
     (booking: IBooking) =>
-      booking?.status != "ACCEPTED" || "DECLINED" || "REQUESTED" || "CANCELLED",
+      !["ACCEPTED", "DECLINED", "REQUESTED", "CANCELLED"].includes(
+        booking.status,
+      ),
   );
 
   return (
