@@ -8,6 +8,7 @@ import { Booking } from "@/app/(publicGroup)/_types/types";
 import { MdDetails } from "react-icons/md";
 import Link from "next/link";
 import PayNowButton from "@/components/dashboard/pay-now-button";
+import ReviewButton from "@/components/dashboard/review-button";
 
 export default async function CustomerBookingsPage() {
   const result = await getBookings();
@@ -88,9 +89,7 @@ export default async function CustomerBookingsPage() {
                     )}
 
                     {booking.status === "COMPLETED" && (
-                      <Button size="sm" variant="outline">
-                        Review
-                      </Button>
+                      <ReviewButton bookingId={booking.id} />
                     )}
                   </td>
                   <td className="px-5 py-4 text-right">

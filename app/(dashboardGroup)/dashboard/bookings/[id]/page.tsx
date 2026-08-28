@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { BookingStatus } from "@/components/dashboard/booking-status";
 import { getBookingsById } from "@/app/(dashboardGroup)/_actions/getBookings";
 import PayNowButton from "@/components/dashboard/pay-now-button";
+import ReviewButton from "@/components/dashboard/review-button";
 
 export default async function BookingDetailsPage({
   params,
@@ -230,7 +231,9 @@ export default async function BookingDetailsPage({
                 {/* COMPLETED */}
 
                 {booking.status === "COMPLETED" && (
-                  <Button className="w-full">Leave Review</Button>
+                  <div className="w-full">
+                    <ReviewButton bookingId={booking.id} />
+                  </div>
                 )}
 
                 {/* CANCELLED */}
