@@ -127,8 +127,6 @@ Filtering options:
 
 The complete customer workflow in FixItNow:
 
-flowchart TD
-
 A[Register / Login] --> B[Browse Services]
 
 B --> C[View Technician Profile]
@@ -159,9 +157,6 @@ Implemented real payment integration using secure online payment gateways.
 
 ## Payment Flow
 
-```
-flowchart TD
-
 A[Booking Accepted] --> B[Create Payment Session]
 
 B --> C[Redirect To Payment Gateway]
@@ -181,22 +176,21 @@ D --> E[Update Booking Status]
 - TypeScript
 - Tailwind CSS
 - Shadcn UI
+
 ## Authentication
 
 - JWT
 - Next.js Middleware
 
-
 ## Payment
 
 - Stripe Checkout
 
-
-
 ## Deployment
 
 - Vercel
-```
+
+````
 
 # ⚙️ Installation & Setup
 
@@ -215,4 +209,4 @@ admin@gmail.com
 
 Password:
 123456
-```
+````
