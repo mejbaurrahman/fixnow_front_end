@@ -1,4 +1,4 @@
-# 🔧 FixItNow - Home Services Marketplace (Frontend)
+# 🔧 FixNow - Home Services Marketplace (Frontend)
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Enabled-blue)
@@ -9,7 +9,7 @@
 
 ## 📌 Project Overview
 
-**FixItNow** is a modern and responsive home services marketplace application built with **Next.js App Router**.
+**FixNow** is a modern and responsive home services marketplace application built with **Next.js App Router**.
 
 The platform connects customers with professional technicians for various home services.
 
@@ -25,12 +25,14 @@ This project is a **frontend application integrated with a backend REST API**.
 
 # 🌐 Project Links
 
-| Resource          | URL                  |
-| ----------------- | -------------------- |
-| Live Frontend     | YOUR_VERCEL_URL      |
-| GitHub Repository | YOUR_GITHUB_URL      |
-| Backend API       | YOUR_BACKEND_API_URL |
-| Demo Video        | YOUR_VIDEO_URL       |
+| Resource         | URL                                               |
+| ---------------- | ------------------------------------------------- |
+| Frontend Repo    | https://github.com/mejbaurrahman/fixnow_front_end |
+| Live Frontend    | https://fixnow-front-end.vercel.app/              |
+| Backend API LIVE | https://fixnow-backend.vercel.app/                |
+| Demo Video       | YOUR_VIDEO_URL                                    |
+| Admin Email      | admin@gmail.com                                   |
+| Admin Password   | 123456                                            |
 
 ---
 
@@ -125,7 +127,7 @@ Filtering options:
 
 # 📅 Customer Booking Journey
 
-The complete customer workflow in FixItNow:
+The complete customer workflow in FixNow:
 
 A[Register / Login] --> B[Browse Services]
 
