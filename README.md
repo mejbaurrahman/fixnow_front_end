@@ -30,7 +30,7 @@ This project is a **frontend application integrated with a backend REST API**.
 | Frontend Repo    | https://github.com/mejbaurrahman/fixnow_front_end |
 | Live Frontend    | https://fixnow-front-end.vercel.app/              |
 | Backend API LIVE | https://fixnow-backend.vercel.app/                |
-| Demo Video       | YOUR_VIDEO_URL                                    |
+| Demo Video       | [YOUR_VIDEO_URL](https://drive.google.com/file/d/1wbei1BdQ0HGkPIaxZNIGnII_yn9UehHm/view?usp=sharing)                                    |
 | Admin Email      | admin@gmail.com                                   |
 | Admin Password   | 123456                                            |
 
