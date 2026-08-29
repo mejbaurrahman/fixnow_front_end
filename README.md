@@ -110,6 +110,7 @@ Supported Roles:
 - Service ratings
 - Starting price display
 - Technician showcase
+- Technicians and Categories
 
 ## Search & Filter
 
@@ -158,7 +159,7 @@ Implemented real payment integration using secure online payment gateways.
 
 ## Payment Flow
 
-```mermaid
+```
 flowchart TD
 
 A[Booking Accepted] --> B[Create Payment Session]
