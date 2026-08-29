@@ -12,11 +12,11 @@ export default async function AdminDashboardPage() {
   const result = await getUsers();
   const users = result?.data.length || 0;
   const result2 = await getTechnicians();
-  const technicians = result?.data.length || 0;
+  const technicians = result2?.data.length || 0;
   const result3 = await getBookingsByAdmin();
-  const bookings = result?.data.length || 0;
+  const bookings = result3?.data.length || 0;
   const result4 = await getCategories();
-  const categories = result?.data.length || 0;
+  const categories = result4?.data.length || 0;
   const stats = [
     {
       title: "Total Users",

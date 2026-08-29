@@ -53,13 +53,6 @@ const userMenuItems: UserMenuItem[] = [
     icon: CircleUserRound,
   },
   {
-    label: "Settings",
-    action: "settings",
-    href: "/settings",
-    type: "link",
-    icon: Settings,
-  },
-  {
     label: "Logout",
     action: "logout",
     type: "button",

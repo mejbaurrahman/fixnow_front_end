@@ -50,7 +50,7 @@ export function UserProfileDetails({ profile }: { profile: UserProfile }) {
             <Badge variant="outline">
               <ShieldCheck className="mr-1 size-4" />
 
-              {profile.status || "ACTIVE"}
+              {(profile.role !== "ADMIN" && profile.status) || "ACTIVE"}
             </Badge>
           </div>
 
@@ -85,10 +85,6 @@ export function UserProfileDetails({ profile }: { profile: UserProfile }) {
           </div>
         </div>
       </div>
-
-      {/* ======================
-          TECHNICIAN DETAILS
-      ======================= */}
 
       {profile.role === "TECHNICIAN" && profile.technicianProfile && (
         <div className="space-y-6">
