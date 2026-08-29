@@ -126,7 +126,6 @@ Filtering options:
 
 The complete customer workflow in FixItNow:
 
-````mermaid
 flowchart TD
 
 A[Register / Login] --> B[Browse Services]
@@ -156,8 +155,6 @@ Implemented real payment integration using secure online payment gateways.
 ## Supported Payment Methods
 
 - Stripe Checkout
-
-
 
 ## Payment Flow
 
@@ -198,7 +195,7 @@ D --> E[Update Booking Status]
 ## Deployment
 
 - Vercel
-````
+```
 
 # ⚙️ Installation & Setup
 
