@@ -7,6 +7,8 @@ import {
   Paintbrush,
   Wrench,
 } from "lucide-react";
+import { Category } from "@/app/(publicGroup)/_types/types";
+import { BiCategoryAlt } from "react-icons/bi";
 
 const categories = [
   {
@@ -40,8 +42,11 @@ const categories = [
     icon: Wrench,
   },
 ];
+type CategoriesResponseProps = {
+  categories: Category[];
+};
 
-export function Categories() {
+export function Categories({ categories }: CategoriesResponseProps) {
   return (
     <section className="border-y bg-muted/30 py-16 md:py-20">
       <div className="container mx-auto px-4">
@@ -52,20 +57,18 @@ export function Categories() {
         />
 
         <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          {categories.map((category) => {
-            const Icon = category.icon;
-
+          {categories.map((category: Category) => {
             return (
               <Link
-                key={category.title}
+                key={category.id}
                 href="/services"
                 className="group rounded-2xl border bg-card p-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-md"
               >
                 <div className="mx-auto flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                  <Icon className="size-6" />
+                  <BiCategoryAlt className="size-6" />
                 </div>
 
-                <h3 className="mt-4 font-semibold">{category.title}</h3>
+                <h3 className="mt-4 font-semibold">{category.name}</h3>
 
                 <p className="mt-1 text-xs leading-5 text-muted-foreground">
                   {category.description}

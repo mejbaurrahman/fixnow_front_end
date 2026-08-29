@@ -5,6 +5,7 @@ import { ArrowRight, Clock, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { IService } from "@/app/(publicGroup)/_types/types";
 
 const services = [
   {
@@ -31,15 +32,18 @@ const services = [
     id: "3",
     title: "Residential Electrical Service",
     description: "Professional electrical installation and repair.",
-    image:
-      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1000&auto=format&fit=crop",
+    image: "",
     price: 45,
     rating: 4.9,
     duration: 90,
   },
 ];
 
-export function FeaturedServices() {
+type ServicesResponseProps = {
+  services: IService[];
+};
+
+export function FeaturedServices({ services }: ServicesResponseProps) {
   return (
     <section className="py-16 md:py-20">
       <div className="container mx-auto px-4">
@@ -67,7 +71,7 @@ export function FeaturedServices() {
         </div>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
+          {services.slice(0, 6).map((service: IService) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>
@@ -76,12 +80,19 @@ export function FeaturedServices() {
   );
 }
 
-function ServiceCard({ service }: { service: (typeof services)[number] }) {
+type ServiceProps = {
+  service: IService;
+};
+function ServiceCard({ service }: ServiceProps) {
   return (
     <Card className="group overflow-hidden border-border/70 py-0 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       <div className="relative aspect-16/10 overflow-hidden">
         <Image
-          src={service.image}
+          src={
+            service?.img
+              ? service.img
+              : "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1000&auto=format&fit=crop"
+          }
           alt={service.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -95,7 +106,9 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1 text-sm">
             <Star className="size-4 fill-yellow-400 text-yellow-400" />
-            <span className="font-medium">{service.rating}</span>
+            <span className="font-medium">
+              {service?.technician?.technicianProfile?.rating}
+            </span>
           </div>
 
           <div className="flex items-center gap-1 text-xs text-muted-foreground">

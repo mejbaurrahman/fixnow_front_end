@@ -38,8 +38,8 @@ export function HowItWorks() {
           </h2>
 
           <p className="mt-4 text-muted-foreground">
-            From finding a professional to completing your service, FixItNow
-            keeps everything simple.
+            From finding a professional to completing your service, FixNow keeps
+            everything simple.
           </p>
         </div>
 
